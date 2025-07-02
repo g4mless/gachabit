@@ -6,6 +6,7 @@ Anda karbit tapi bingung mau klaim apa? cukup gacha menggunakan project ini 😛
 - Riek (React)
 - Feet (Vite)
 - Ekor Angin (Tailwind)
+- API : SafeBooru
 
 # Run Locally
 ```
