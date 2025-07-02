@@ -2,7 +2,7 @@
 // Vercel Serverless Function untuk proxy Safebooru API
 
 export default async function handler(req, res) {
-  const apiUrl = 'https://safebooru.org/api/index.php?page=dapi&s=post&q=index&json=1&limit=1&tags=1girl%20sort:random';
+  const apiUrl = 'https://safebooru.org/index.php?page=dapi&s=post&q=index&json=1&limit=1&tags=1girl%20sort:random';
   try {
     const response = await fetch(apiUrl, {
       headers: {
