@@ -5,7 +5,6 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 function App() {
   const [image, setImage] = useState(null)
-  const [tags, setTags] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [gachaCount, setGachaCount] = useState(0);
@@ -14,13 +13,14 @@ function App() {
     setIsLoading(true)
     setError(null)
     setImage(null)
-    setTags([]);
     
     try {
       await delay(1000); 
       const response = await fetch('/api/gacha')
       if (!response.ok) {
-        throw new Error('Kanjut Kuda')
+        const errorText = await response.text();
+        console.log('API Response Error Body:', errorText);
+        throw new Error(`Response not ok: ${response.status} ${response.statusText}`)
       }
       const data = await response.json()
 
@@ -28,7 +28,6 @@ function App() {
         const post = data[0]
         const imageUrl = post.sample_url
         setImage(imageUrl)
-        setTags(post.tags.split(' '))
         setGachaCount(prevCount => prevCount + 1); 
       } else {
         throw new Error('Gada gambarnya')
@@ -39,22 +38,6 @@ function App() {
       setIsLoading(false)
     }
   }
-
-  const isCharacterTag = (tag) => {
-    // this shit was vibe coded 😂
-    return tag.includes('_') && (
-      tag.match(/_/g).length === 1 || tag.includes('(')
-    );
-  };
-
-  const isCopyrightTag = (tag) => {
-    // this shit was vibe coded 😂
-    return (
-      tag.match(/^[a-z0-9_]+$/) &&
-      (tag.includes('_') || tag.includes('(')) &&
-      !tag.match(/\d{4}/)
-    );
-  };
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
@@ -93,32 +76,16 @@ function App() {
 
         {image && (
           <div className="mt-4 w-full">
-            <div className="grid md:grid-cols-2 gap-8 w-full">
+            <div className="grid md:grid-cols-1 gap-8 w-full">
               
-              <div className="group relative">
+              <div className="group relative mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-r from-zinc-600/20 to-zinc-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
                 <img 
                   src={image} 
                   alt="Gacha Result" 
-                  className="relative w-full object-contain border-2 border-zinc-700 rounded-2xl bg-zinc-800/50 backdrop-blur-sm shadow-2xl transition-all duration-500 hover:border-zinc-600 hover:shadow-zinc-500/20"
-                  style={{ maxHeight: '65vh' }}
+                  className="relative block mx-auto object-contain border-2 border-zinc-700 rounded-2xl bg-zinc-800/50 backdrop-blur-sm shadow-2xl transition-all duration-500 hover:border-zinc-600 hover:shadow-zinc-500/20"
+                  style={{ maxHeight: '60vh' }}
                 />
-              </div>
-
-              <div className="w-full">
-                <div className="bg-zinc-800/30 backdrop-blur-sm border border-zinc-700 rounded-2xl p-6 h-full overflow-y-auto" style={{ maxHeight: '65vh' }}>
-                  <h3 className="text-zinc-200 text-xl font-semibold mb-4 text-left">Tags</h3>
-                  <div className="flex flex-wrap gap-3 justify-start">
-                    {tags.filter(tag => isCharacterTag(tag) || isCopyrightTag(tag)).map((tag, index) => (
-                      <span 
-                        key={index} 
-                        className="bg-zinc-700 text-zinc-200 px-3 py-1 rounded-lg text-sm capitalize backdrop-blur-lg"
-                      >
-                        {tag.replace(/_/g, ' ')}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -131,7 +98,6 @@ function App() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-zinc-600/0 via-zinc-500/10 to-zinc-600/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
           <span className="relative flex items-center gap-3">
-            <span>🎰</span>
             Gacha
           </span>
         </button>
