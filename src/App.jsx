@@ -94,7 +94,7 @@ function App() {
         <button
           onClick={fetchGacha}
           disabled={isLoading}
-          className="mt-4 relative group overflow-hidden bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border-2 border-zinc-600 hover:border-zinc-500 px-8 py-4 text-xl font-semibold rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-zinc-800 disabled:hover:border-zinc-600 shadow-xl hover:shadow-2xl hover:shadow-zinc-500/20"
+          className="mt-4 relative group overflow-hidden bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border-2 border-zinc-600 hover:border-zinc-500 px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 text-base sm:text-lg font-semibold rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-zinc-800 disabled:hover:border-zinc-600 shadow-xl hover:shadow-2xl hover:shadow-zinc-500/20"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-zinc-600/0 via-zinc-500/10 to-zinc-600/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
           <span className="relative flex items-center gap-3">
