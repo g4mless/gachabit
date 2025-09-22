@@ -49,7 +49,7 @@ function App() {
           </h1>
           {!image && (
             <p className="text-zinc-400 text-lg mt-3 max-w-2xl mx-auto">
-              Anda karbit tapi bingung mau klaim apa? cukup gacha disini saja 😛
+              Anda karbit tapi bingung klaim apa? gacha disini 😛
               <br />API Sauce : Safebooru
             </p>
           )}
