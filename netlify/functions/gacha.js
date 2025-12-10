@@ -1,7 +1,7 @@
 // /netlify/functions/gacha.js
 // Netlify Function untuk proxy Safebooru API
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // Set CORS headers untuk Netlify Functions
   const headers = {
     'Access-Control-Allow-Origin': '*',
